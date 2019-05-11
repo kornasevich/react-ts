@@ -1,0 +1,53 @@
+.menu ul li{
+    width: auto;
+    border: 1px solid black;
+}
+.menu ul > li:hover{
+    background-color: white;
+}
+.menu ul ul > li:hover{
+    background-color: white;
+}
+.menu ul li, .menu ul{
+    display: inline-block;
+}
+.menu ul{
+    position: relative;
+    padding: 0;
+    background-color: white;
+    margin-left: -1px;
+    width: 69px;
+
+}
+.menu ul ul{
+    display: none;
+    position: absolute;
+    background-color: white;
+}
+.menu ul a{
+    color: black;
+    text-decoration: none;
+}
+.menu ul ul a{
+    color: black;
+    text-decoration: none;
+}
+.menu li:hover ul{
+    display: block;
+}
+
+.menu li:hover li{
+    display: block;
+}
+
+.menu  label{
+    font-size:16px;
+}
+
+.menu div {
+    width: 100%;
+}
+
+.menu{
+    width: 69px;
+}

@@ -1,0 +1,34 @@
+label{
+    font-size: 20px;
+}
+.create-name-form-label{
+    font-size:25px;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.create-name-form{
+    width:100%;
+}
+
+.input-forms > div {
+    display: flex;
+    width: 153px;
+    flex-direction:initial;
+    margin-top: 20px;
+}
+
+
+.input-forms{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input-forms > div > label{
+    margin: 0 auto;
+}
+
+.button{
+    margin: 0 auto;
+}
