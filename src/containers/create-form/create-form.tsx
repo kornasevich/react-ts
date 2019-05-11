@@ -64,21 +64,21 @@ export default class CreateForm extends Component<any,any>{
     });
     return (
       <div>
-      <h3 className="titleInput">Выберите поля для формы:</h3>
-      <div className="form-builder">
-        {inputCheckbox}
-        <div className="input-block">
-        <nav className="menu">
-          <ul>
-            <li><a href="#">Выберите</a>
-              <ul>
-                {inputSelect}
-              </ul>
-            </li>
-          </ul>
-        </nav>
+        <h3 className="titleInput">Выберите поля для формы:</h3>
+        <div className="form-builder">
+          {inputCheckbox}
+          <div className="input-block">
+          <nav className="menu">
+            <ul>
+              <li><a href="#">Выберите</a>
+                <ul>
+                  {inputSelect}
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          </div>
         </div>
-      </div>
       </div>
     );
   }
