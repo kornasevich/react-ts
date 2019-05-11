@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './create-form-name.css';
 
 export default class CreateFormName extends Component{
-  render(){
+  render() {
     return(
       <div className="create-name-form-label">
         <label>
@@ -11,6 +11,6 @@ export default class CreateFormName extends Component{
           <input className="create-name-form" placeholder="Введите название формы"/>
         </label>
       </div>
-    )
+    );
   }
 }

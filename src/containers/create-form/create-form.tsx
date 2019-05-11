@@ -4,7 +4,7 @@ import './create-form.css';
 import CreateFormItems from '../create-form-items/create-form-items';
 import CreateFormSelectItems from '../create-form-select-items/create-form-select-items';
 
-export default class CreateForm extends Component<any,any>{
+export default class CreateForm extends Component<any, any>{
   state = {
     inputForms : {},
   };
@@ -19,7 +19,8 @@ export default class CreateForm extends Component<any,any>{
         inputForms: mass,
       };
     });
-  };
+  }
+
   checkbox: string[] = [
     'Фамилия',
     'Имя',

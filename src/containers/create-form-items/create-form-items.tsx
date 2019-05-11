@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './create-form-items.css';
 
 export default class CreateFormItems extends Component<any> {
@@ -13,7 +13,8 @@ export default class CreateFormItems extends Component<any> {
       this.props.changeCheckbox(this.state.inputForms);
     });
 
-  };
+  }
+
   render() {
     const { label } = this.props;
     return (

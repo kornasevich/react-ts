@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './create-form-button.css';
 
@@ -9,4 +9,4 @@ export default class CreateFormButton extends Component {
       <a href="#" className="button" >Создать</a>
     );
   }
-};
+}

@@ -5,7 +5,7 @@ import './form.css';
 export default class Form extends Component<any> {
   public render() {
     return (
-      <div className="all-form"></div>
+      <div className="all-form" />
     );
   }
 }

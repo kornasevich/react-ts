@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './create-form-select-items.css';
 
 export default class CreateFormSelectItems extends Component<any> {
 
-
   render() {
-    const {selectLabel} = this.props;
+    const { selectLabel } = this.props;
     return (
       <li>
         <div>
@@ -18,4 +17,4 @@ export default class CreateFormSelectItems extends Component<any> {
       </li>
     );
   }
-};
+}
