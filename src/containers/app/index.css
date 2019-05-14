@@ -1,0 +1,40 @@
+.container {
+  display: flex
+}
+
+.cellContainer {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(72, 78, 104);
+}
+
+.firstCellContainer {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(72, 78, 104);
+  margin-right: 20px
+}
+
+.create-name-form-label{
+  margin:0 auto;
+  width: 550px;
+}
+
+body{
+  margin:0;
+  padding: 0;
+}
+
+.form-all{
+  display:flex;
+}
+
+.form-one{
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+.form{
+  margin-top: 40px;
+}
+
