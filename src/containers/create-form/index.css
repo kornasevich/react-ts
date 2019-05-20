@@ -1,5 +1,5 @@
 .form-builder{
-    width:550px;
+    width:100%;
     margin: 20px auto auto auto;
     display: flex;
     flex-wrap:wrap;
@@ -11,13 +11,18 @@
     padding-top:30px;
 }
 
+.create-name-form-label,
+.create-name-form{
+    width:60%;
+}
+
 .input-block > label,
 .input-block > nav {
     margin-left:calc(50% - 50px);
 }
 
 .titleInput {
-    width: 550px;
+    width: inherit;
     margin:20px auto 20px auto;
 }
 
@@ -138,6 +143,39 @@ label{
     box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
     margin-top: 50px;
     width:100px;
+}
+
+
+////////////////////*selectMenu*///////////////////////////////
+.mainmenubtn {
+    background-color: red;
+    color: black;
+    border: none;
+    cursor: pointer;
+    padding:20px;
+    margin-top:20px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-child {
+    display: none;
+    min-width: 50px;
+}
+.dropdown-child a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-child {
+    display: block;
+}
+
+.select-menu {
+    margin-left: 10%;
 }
 
 

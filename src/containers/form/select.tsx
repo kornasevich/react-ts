@@ -1,20 +1,29 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './index.css';
 
-export default class SelectItems extends Component<any> {
+interface Props {
+  selectItems: any;
+  inputSelect: any;
+}
+
+export default class SelectItems extends Component<Props> {
   render() {
-    const dis = this.props.selectItems.length;
+    const {
+      selectItems,
+    } = this.props;
+
+    const lengthArray = selectItems.length;
 
     const style = {
-      display: dis ? 'block' : 'none',
+      display: lengthArray ? 'block' : 'none',
     };
     return (
       <nav style={style} className="menu">
         <ul>
           <li><a href="#">Выберите</a>
             <ul>
-              {this.props.selectItems}
+              {selectItems}
             </ul>
           </li>
         </ul>

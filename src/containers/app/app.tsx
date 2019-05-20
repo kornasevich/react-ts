@@ -10,9 +10,7 @@ export default class App extends Component {
     return (
       <div className="form-build">
           <Header/>
-        <div className="form">
           <CreateForm/>
-        </div>
       </div>
     );
   }

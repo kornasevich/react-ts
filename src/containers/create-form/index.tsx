@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 
 import './index.css';
 import Items from './items';
-import SelectItems from './select-items';
 import {checkbox, select} from './constans';
+import Select from './select';
 import Name from './name';
 import Form from '../form';
 
@@ -17,7 +17,6 @@ interface State {
   };
 }
 
-
 export default class CreateForm extends Component <{}, State> {
 
   state = {
@@ -26,36 +25,33 @@ export default class CreateForm extends Component <{}, State> {
     selectForms: {},
   };
 
-  changeCheckbox = (value: object) => {
-    this.setState((state) => {
-      const mass = Object.assign({}, state.inputForms, value);
-      return {
-        inputForms: mass,
-      };
+  changeCheckbox = (value: {
+    [key: string]: boolean;
+  }) => {
+    const mass = Object.assign({}, this.state.inputForms, value);
+    this.setState({
+      inputForms: mass,
     });
   };
 
   changeName = (value: string) => {
-    this.setState((state: State) => {
-      return {
-        ...state,
-        formName: value,
-      };
+    this.setState({
+      ...this.state,
+      formName: value,
     });
   };
 
-  changeSelect = (value: object) => {
-    this.setState((state: State) => {
-      const mass = Object.assign({}, state.selectForms, value);
-      return {
-        selectForms: mass,
-      };
+  changeSelect = (value: {
+    [key: string]: boolean;
+  }) => {
+    const mass = Object.assign({}, this.state.selectForms, value);
+    this.setState({
+      selectForms: mass,
     });
   };
 
-  render() {
-
-    const inputCheckbox = checkbox.map((item: string, index: number) => {
+  inputCheckbox = () => {
+    return checkbox.map((item: string, index: number) => {
       return (
         <Items
           label={item}
@@ -64,44 +60,84 @@ export default class CreateForm extends Component <{}, State> {
         />
       );
     });
+  };
 
-    const inputSelect = select.map((item: string, index: number) => {
+  selectItems = () => {
+    return select.map((item: string, index: number) => {
       return (
-        <SelectItems
-          selectLabel={item}
+        <Select
           key={index}
+          selectName={item}
           changeSelect={this.changeSelect}
         />
       );
     });
+  };
 
-    const newState = Object.assign({}, this.state);
+  componentWillUpdate({}, nextState: State) {
+    localStorage.setItem('build-form', JSON.stringify(nextState));
+  }
+
+  componentWillMount() {
+    if (localStorage.getItem('build-form')) {
+      this.setState((state: State): any => {
+        return JSON.parse(localStorage.getItem('build-form') || 'null');
+      });
+    }
+  }
+
+  componentDidMount() {
+    const checkboxes = document.querySelectorAll('.create-input-form');
+    const selectCheckboxes = document.querySelectorAll('.dropdown-child');
+    const lc = JSON.parse(localStorage.getItem('build-form') || 'null');
+    Object.entries(lc.inputForms).forEach((item1) => {
+      checkboxes.forEach((item2) => {
+        if (item2.childNodes[0].textContent === item1[0]) {
+          if (item1[1]) {
+            (item2.childNodes[0].childNodes[1] as HTMLInputElement).checked = true;
+          }
+        }
+      });
+    });
+
+    Object.entries(lc.selectForms).forEach((item1) => {
+      selectCheckboxes.forEach((item2: HTMLInputElement) => {
+        if (item2.childNodes[0].textContent === item1[0]) {
+          if (item1[1]) {
+            (item2.childNodes[0].childNodes[1] as HTMLInputElement).checked = true;
+          }
+        }
+      });
+    });
+  }
+
+  render() {
+    const newState = {...this.state};
     return (
-      <div className="form-all">
-        <div className="form-one">
-          <Name
-            changeName={this.changeName}
-          />
-          <h3 className="titleInput">Выберите поля для формы:</h3>
-          <div className="form-builder">
-            {inputCheckbox}
-            <div className="input-block">
-              <nav className="menu">
-                <ul>
-                  <li><a href="#">Выберите</a>
-                    <ul>
-                      {inputSelect}
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
+      <div className="form">
+        <div className="form-all">
+          <div className="form-one">
+            <Name
+              changeName={this.changeName}
+            />
+            <h3 className="titleInput">Выберите поля для формы:</h3>
+            <div className="form-builder">
+              {this.inputCheckbox()}
+              <div className="input-block">
+                <div className="select-menu">
+                  <div className="dropdown">
+                    <button className="mainmenubtn">Menu</button>
+                    {this.selectItems()}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="form-two">
-          <Form
-            createForm={newState}
-          />
+          <div className="form-two">
+            <Form
+              createForm={newState}
+            />
+          </div>
         </div>
       </div>
     );

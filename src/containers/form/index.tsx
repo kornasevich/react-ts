@@ -26,21 +26,33 @@ interface State {
 }
 
 export default class Form extends Component<Props, State> {
-  state: State = {
+  state =  {
     inputForms: {},
     formName: '',
     selectForms: {},
   };
 
   componentWillReceiveProps(nextProps: Props) {
-    this.setState((state: State) => {
+    this.setState((state) => {
       return nextProps.createForm;
     });
   }
 
+  componentWillUpdate({}, nextState: State) {
+    localStorage.setItem('build-form', JSON.stringify(nextState));
+  }
+
+  componentWillMount() {
+    if (localStorage.getItem('build-form')) {
+      this.setState((state: State): any => {
+        return JSON.parse(localStorage.getItem('build-form') || 'null');
+      });
+    }
+  }
+
   render() {
     const elements = Object.entries(this.state.inputForms).map((item, index) => {
-      if (item[1] === true) {
+      if (item[1]) {
         return (
           <div
             key={index}
@@ -51,10 +63,11 @@ export default class Form extends Component<Props, State> {
           </div>
         );
       }
+      return null    ///для того ,чтобы ошибки не было
     });
 
     const inputElements = Object.entries(this.state.selectForms).map((item, index) => {
-      if (item[1] === true) {
+      if (item[1]) {
         return (
           <li key={index}>
             <div>
@@ -69,6 +82,7 @@ export default class Form extends Component<Props, State> {
           </li>
         );
       }
+      return null; ///для того ,чтобы ошибки не было
     });
 
     return (
@@ -76,9 +90,10 @@ export default class Form extends Component<Props, State> {
         <div className="form-name">{this.state.formName}</div>
         {elements}
         <div className="input-block">
-         <SelectItems
-           selectItems={inputElements}
-         />
+          <SelectItems
+            selectItems={inputElements}
+            inputSelect={this.state.selectForms}
+          />
         </div>
       </div>
     );

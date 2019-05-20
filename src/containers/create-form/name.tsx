@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { ChangeEvent, Component } from 'react';
 
 import './index.css';
 
 interface Props {
-  changeName: (arg: string) => void  ;
+  changeName: (arg: string) => void;
 }
 
 export default class Name extends Component<Props> {
-  changeName = (event: any) => {
-    this.props.changeName(event.target.value);
+  changeNames = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { changeName } = this.props;
+    changeName(target.value);
   };
 
   render() {
@@ -19,7 +20,7 @@ export default class Name extends Component<Props> {
           <input
             className="create-name-form"
             placeholder="Введите название формы"
-            onChange={this.changeName}
+            onChange={this.changeNames}
           />
         </label>
       </div>

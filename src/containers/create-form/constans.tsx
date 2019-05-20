@@ -9,7 +9,8 @@ const checkbox: string[] = [
   'Город',
   'Адрес',
   'Логин',
-  'Пароль'];
+  'Пароль',
+];
 
 const select: string[] = [
   'item 1',

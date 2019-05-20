@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { ChangeEvent, Component } from 'react';
 import './index.css';
 
-interface CreateFormItemsState {
+interface State {
   inputForms: {
     [key: string]: boolean;
   };
@@ -12,23 +12,21 @@ interface CreateFormItemsState {
 }
 
 interface Props {
-  changeCheckbox: (arg: {[key: string]: boolean}) => void;
+  changeCheckbox: (arg: { [key: string]: boolean }) => void;
   label: string;
 }
 
-export default class Items extends Component<Props> {
-  state: CreateFormItemsState = {
+export default class Items extends Component<Props, State> {
+  state =  {
     inputForms: {},
     formName: '',
     selectForms: {},
   };
 
-  changeCheckbox = (event: any) =>  {
-    const el = event.target.parentElement.innerText;
-    const ch = event.target.checked;
-    this.setState((state: CreateFormItemsState) => {
+  changeCheckbox = ({ currentTarget, target }: ChangeEvent<HTMLInputElement>) => {
+    this.setState((state: State):any => {
       const stateCopy = Object.assign({}, state);
-      stateCopy.inputForms[el] = ch;
+      stateCopy.inputForms[currentTarget.childNodes[0].textContent as string] = target.checked;
       this.props.changeCheckbox(stateCopy.inputForms);
       return {
         state: stateCopy,
@@ -39,12 +37,14 @@ export default class Items extends Component<Props> {
   render() {
     const { label } = this.props;
     return (
-      <div className="input-block">
+      <div
+        className="input-block create-input-form"
+        onChange={this.changeCheckbox}
+      >
         <label>
           {label}
           <input
-            onChange={this.changeCheckbox}
-            className="input-form create-password-form"
+            className="input-form"
             type="checkbox"
           />
         </label>
