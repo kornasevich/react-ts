@@ -1,0 +1,40 @@
+.created-form_name{
+    font-size:25px;
+    margin-left:150px;
+    margin-top: 20px;
+}
+
+.input-form-created{
+    display: flex;
+    margin-top: 20px;
+    margin-left:20px;
+}
+
+.input-form-created div{
+    margin-right:20px;
+}
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-child {
+    display: none;
+    min-width: 50px;
+}
+.dropdown-child a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-child {
+    display: block;
+}
+
+.select-menu{
+    margin-left:10%;
+}
+

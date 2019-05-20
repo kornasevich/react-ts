@@ -1,0 +1,52 @@
+.create-form {
+    margin-left: 25%;
+    display: flex;
+}
+
+.form {
+    border-right: 1px solid black;
+    width: 50%;
+    max-width: 400px;
+}
+
+.form-name_input input {
+    width: 50%;
+}
+
+.form-input {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-input_checkbox {
+    display: flex;
+    padding: 20px;
+}
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-childs {
+    display: none;
+    min-width: 50px;
+}
+
+.dropdown-childs a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-childs {
+    display: block;
+}
+
+.select-menu {
+    margin-left: 10%;
+    margin-top: 20px;
+}
