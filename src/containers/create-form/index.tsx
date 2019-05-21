@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './index.css';
 
 import Name from './name';
 import Items from './items';
-import {checkbox, select} from './constans';
+import { checkbox, select } from './constans';
 import Select from './select';
 import Form from '../form';
 
-interface IStringArray {
+/*interface IStringArray {
   values: string[];
 }
 
@@ -17,26 +17,19 @@ interface State {
   selectForms: IStringArray[];
 }
 
-interface IStringBooleanArray {
+/!*interface IStringBooleanArray {
   inputName: string;
   checkboxElementCheck: boolean;
-}
+}*!/*/
 
-export default class CreateForm extends Component<{}, State> {
+export default class CreateForm extends Component {
 
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  };
-
-  changeName = (value: string) => {
+/*  changeName = (value: string) => {
     this.setState({
       ...this.state,
       formName: value,
     });
   };
-
 
   changeCheckbox = (value: IStringBooleanArray[]): void => {
     const copyState = {...this.state};
@@ -62,7 +55,7 @@ export default class CreateForm extends Component<{}, State> {
       copyState.selectForms = [...newArr];
       this.setState({...copyState});
     }
-  };
+  };*/
 
   formItems = () => {
     return checkbox.map((item: string, index: number) => {
@@ -70,11 +63,11 @@ export default class CreateForm extends Component<{}, State> {
         <Items
           key={index}
           checkboxName={item}
-          changeCheckbox={this.changeCheckbox}
+          /*changeCheckbox={this.changeCheckbox}*/
         />
       );
     });
-  };
+  }
 
   selectItems = () => {
     return select.map((item: string, index: number) => {
@@ -82,13 +75,13 @@ export default class CreateForm extends Component<{}, State> {
         <Select
           key={index}
           selectName={item}
-          selectCheckbox={this.selectCheckbox}
+          /*selectCheckbox={this.selectCheckbox}*/
         />
       );
     });
-  };
+  }
 
-  componentWillUpdate({}, nextState: State) {
+/*  componentWillUpdate({}, nextState: State) {
     localStorage.setItem('build-form', JSON.stringify(nextState));
   }
 
@@ -99,7 +92,6 @@ export default class CreateForm extends Component<{}, State> {
       });
     }
   }
-
 
   componentDidMount() {
     const checkboxes = document.querySelectorAll('.form-input_checkbox');
@@ -124,7 +116,7 @@ export default class CreateForm extends Component<{}, State> {
         }
       });
     });
-  }
+  }*/
 
   render() {
     return (
@@ -132,7 +124,7 @@ export default class CreateForm extends Component<{}, State> {
         <div className="form">
           <div className="form-name">
             <Name
-              changeName={this.changeName}
+              /*changeName={this.changeName}*/
             />
           </div>
           <div className="form-input">
@@ -145,9 +137,7 @@ export default class CreateForm extends Component<{}, State> {
             </div>
           </div>
         </div>
-        <Form
-          allState={this.state}
-        />
+        <Form/>
       </div>
     );
   }

@@ -1,15 +1,12 @@
 import React, {Component, FormEvent} from 'react';
 
 import './index.css';
+import {connect} from 'react-redux';
+import * as actions from '../actions/actions';
 
-interface IStringBooleanArray {
+/*interface IStringBooleanArray {
   inputName: string;
   checkboxElementCheck: boolean;
-}
-
-interface Props {
-  selectCheckbox: (value: IStringBooleanArray[]) => void;
-  selectName: string;
 }
 
 interface IStringArray {
@@ -20,14 +17,26 @@ interface State {
   inputForms: string[];
   formName: string;
   selectForms: IStringArray[];
+}*/
+interface IStringBooleanArray {
+  inputName: string;
+  checkboxElementCheck: boolean;
 }
 
-export default class Select extends Component<Props, State> {
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  };
+
+interface State {
+  inputForms: string[];
+  formName: string;
+  selectForms: string[];
+}
+
+interface Props {
+  key: number;
+  selectName: string;
+  selectInput: (value: any) => void;
+}
+
+class Select extends Component<Props> {
 
   selectCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
     const checkBoxElement = currentTarget.childNodes[0].childNodes[1] as HTMLInputElement;
@@ -35,15 +44,9 @@ export default class Select extends Component<Props, State> {
     const checkboxElementCheck = checkBoxElement.checked as boolean;
     const arr: IStringBooleanArray[] = [];
     arr.push({ inputName, checkboxElementCheck });
-    const copyState: State = { ...this.state };
-    copyState.inputForms.push(arr[0].inputName);
-    this.props.selectCheckbox(arr);
-    this.setState((state: State): any => {
-      return {
-        state: copyState,
-      };
-    });
+    this.props.selectInput(arr[0].inputName);
   };
+
 
   render() {
     const {selectName} = this.props;
@@ -60,3 +63,11 @@ export default class Select extends Component<Props, State> {
     );
   }
 };
+
+const mapStateToProps = (state: State) => {
+  return {
+    inputForms: state.selectForms,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Select);

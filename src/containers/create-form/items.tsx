@@ -1,19 +1,19 @@
 import React, { Component, FormEvent } from 'react';
 import './index.css';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 
 interface Props {
   checkboxName: string;
-  changeCheckbox: (value: IStringBooleanArray[]) => void;
-}
-
-interface IStringArray {
-  values: string[];
+  checkInput: (value: any) => void;
+  key: number;
+  inputForms: string[];
 }
 
 interface State {
   inputForms: string[];
   formName: string;
-  selectForms: IStringArray[];
+  selectForms: string[];
 }
 
 interface IStringBooleanArray {
@@ -21,12 +21,7 @@ interface IStringBooleanArray {
   checkboxElementCheck: boolean;
 }
 
-export default class Items extends Component<Props, State> {
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  };
+class Items extends Component<Props, State> {
 
   changeCheckbox = ({ currentTarget }: FormEvent<HTMLInputElement>) => {
     const checkBoxElement = currentTarget.childNodes[1].childNodes[0] as HTMLInputElement;
@@ -34,14 +29,7 @@ export default class Items extends Component<Props, State> {
     const checkboxElementCheck = checkBoxElement.checked as boolean;
     const arr: IStringBooleanArray[] = [];
     arr.push({ inputName, checkboxElementCheck });
-    const copyState: State = { ...this.state };
-    copyState.inputForms.push(arr[0].inputName);
-    this.props.changeCheckbox(arr);
-    this.setState((state: State): any => {
-      return {
-        state: copyState,
-      };
-    });
+    this.props.checkInput(arr[0].inputName);
   };
 
   render() {
@@ -63,3 +51,11 @@ export default class Items extends Component<Props, State> {
     );
   }
 }
+
+const mapStateToProps = (state: State) => {
+  return {
+    inputForms: state.inputForms,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Items);
