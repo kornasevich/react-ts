@@ -20,10 +20,17 @@ interface State {
 
 interface Props {
   inputName: string;
-  checkboxElementCheck: boolean;
+  inputCheck: boolean;
 }
 
 export default class CreateForm extends Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    if (localStorage.getItem('build-form')) {
+      this.state = JSON.parse(localStorage.getItem('build-form') || 'null');
+    }
+  }
 
   state = {
     inputForms: [],
@@ -38,39 +45,46 @@ export default class CreateForm extends Component<Props, State> {
   };
 
 
-  changeCheckbox = (value: Props): void => {
-    const copyState = {...this.state};
-    const {checkboxElementCheck, inputName} = value;
-    if (checkboxElementCheck) {
-      copyState.inputForms.push(inputName as never);
-      this.setState({...copyState});
+  changeCheckbox = ({inputCheck, inputName}: Props): void => {
+    const copyInputForms = [...this.state.inputForms];
+    if (inputCheck) {
+      copyInputForms.push(inputName as never);
+      this.setState({
+        inputForms: copyInputForms
+      });
     } else {
-      const index = copyState.inputForms.indexOf(inputName as never);
-      copyState.inputForms.splice(index, 1);
-      this.setState({...copyState});
+      const index = copyInputForms.indexOf(inputName as never);
+      copyInputForms.splice(index, 1);
+      this.setState({
+        inputForms: copyInputForms
+      });
     }
   };
 
-  selectCheckbox = (value: Props): void => {
-    const copyState = {...this.state};
-    const {checkboxElementCheck, inputName} = value;
-    if (checkboxElementCheck) {
-      copyState.selectForms.push(inputName as never);
-      this.setState({...copyState});
+  selectCheckbox = ({inputCheck, inputName}: Props): void => {
+    const copySelectForms = [...this.state.selectForms];
+    if (inputCheck) {
+      copySelectForms.push(inputName as never);
+      this.setState({
+        selectForms: copySelectForms
+      });
     } else {
-      const index = copyState.selectForms.indexOf(inputName as never);
-      copyState.selectForms.splice(index, 1);
-      this.setState({...copyState});
+      const index = copySelectForms.indexOf(inputName as never);
+      copySelectForms.splice(index, 1);
+      this.setState({
+        selectForms: copySelectForms
+      });
     }
   };
 
   formItems = () => {
+    const { inputForms } = this.state;
     return checkbox.map((item: string, index: number) => {
       return (
         <Items
           key={index}
           checkboxName={item}
-          stateInputForms={this.state.inputForms}
+          stateInputForms={inputForms}
           changeCheckbox={this.changeCheckbox}
         />
       );
@@ -91,15 +105,9 @@ export default class CreateForm extends Component<Props, State> {
     </div>
   );
 
-  componentWillUpdate({}, nextState: State) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     localStorage.setItem('build-form', JSON.stringify(nextState));
-  }
-
-  componentWillMount() {
-    const localStorageObj = JSON.parse(localStorage.getItem('build-form') || 'null');
-    if (localStorage.getItem('build-form')) {
-      this.setState({...localStorageObj});
-    }
+    return true;
   }
 
   render() {

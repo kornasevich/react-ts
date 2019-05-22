@@ -19,7 +19,7 @@ interface State {
 
 interface IStringBooleanArray {
   inputName: string;
-  checkboxElementCheck: boolean;
+  inputCheck: boolean;
 }
 
 export default class Items extends Component<Props, State> {
@@ -29,21 +29,17 @@ export default class Items extends Component<Props, State> {
     selectForms: [],
   };
 
-  changeCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
-    const checkboxElementCheck = currentTarget.checked as boolean;
-    const checkboxElementName = currentTarget.value as string;
-    const arr: IStringBooleanArray = {
-      inputName: '',
-      checkboxElementCheck: false,
-    };
-    arr['inputName'] = checkboxElementName;
-    arr['checkboxElementCheck'] = checkboxElementCheck;
-    const copyState: State = {...this.state};
-    copyState.inputForms.push(arr.inputName);
-    this.props.changeCheckbox(arr);
+  changeCheckbox = ({currentTarget:{value, checked}}: FormEvent<HTMLInputElement>) => {
+    const { changeCheckbox } = this.props;
+    const checkboxElementCheck = checked as boolean;
+    const checkboxElementName = value as string;
+    changeCheckbox({
+      inputName: checkboxElementName,
+      inputCheck: checkboxElementCheck,
+    });
   };
 
-  checkInputCheck = (value: string, inputForms: string[]): boolean => {
+  checkInputRender = (value: string, inputForms: string[]): boolean => {
     return inputForms.filter((item: string) => item === value).length > 0;
   };
 
@@ -61,7 +57,7 @@ export default class Items extends Component<Props, State> {
             value={checkboxName}
             type="checkbox"
             onChange={this.changeCheckbox}
-            checked={this.checkInputCheck(checkboxName, stateInputForms)}
+            checked={this.checkInputRender(checkboxName, stateInputForms)}
           />
         </div>
       </div>
