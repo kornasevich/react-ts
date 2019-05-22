@@ -6,19 +6,11 @@ interface Props {
   changeName: (arg: string) => void;
 }*/
 
-<<<<<<< HEAD:src/create-form/name.tsx
 export default class Name extends Component<Props> {
   changeFormName = ({ target:{ value } }: ChangeEvent<HTMLInputElement>) =>{
     const { changeName } = this.props;
     changeName(value);
   };
-=======
-export default class Name extends Component/*<Props>*/ {
-/*  changeFormName = ({ target }: ChangeEvent<HTMLInputElement>) =>{
-    const { changeName } = this.props;
-    changeName(target.value);
-  };*/
->>>>>>> redux:src/containers/create-form/name.tsx
 
   render() {
     return (

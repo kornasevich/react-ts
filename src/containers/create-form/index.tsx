@@ -3,11 +3,7 @@ import './index.css';
 
 import Name from './name';
 import Items from './items';
-<<<<<<< HEAD:src/create-form/index.tsx
 import { checkbox, select, defaultSettings } from './constans';
-=======
-import { checkbox, select } from './constans';
->>>>>>> redux:src/containers/create-form/index.tsx
 import Select from './select';
 import Form from '../form';
 
@@ -21,7 +17,6 @@ interface State {
   selectForms: IStringArray[];
 }
 
-<<<<<<< HEAD:src/create-form/index.tsx
 interface Props {
   inputName: string;
   inputCheck: boolean;
@@ -38,14 +33,6 @@ export default class CreateForm extends Component<Props, State> {
       ...savedSettings,
     }
   }
-=======
-/!*interface IStringBooleanArray {
-  inputName: string;
-  checkboxElementCheck: boolean;
-}*!/*/
-
-export default class CreateForm extends Component {
->>>>>>> redux:src/containers/create-form/index.tsx
 
 /*  changeName = (value: string) => {
     this.setState({
@@ -53,7 +40,6 @@ export default class CreateForm extends Component {
     });
   };
 
-<<<<<<< HEAD:src/create-form/index.tsx
 
   changeCheckbox = ({inputCheck, inputName}: Props): void => {
     const copyInputForms = [...this.state.inputForms];
@@ -62,13 +48,6 @@ export default class CreateForm extends Component {
       this.setState({
         inputForms: copyInputForms
       });
-=======
-  changeCheckbox = (value: IStringBooleanArray[]): void => {
-    const copyState = {...this.state};
-    if (value[0].checkboxElementCheck) {
-      copyState.inputForms.push(value[0].inputName as never);
-      this.setState({...copyState});
->>>>>>> redux:src/containers/create-form/index.tsx
     } else {
       const index = copyInputForms.indexOf(inputName as never);
       copyInputForms.splice(index, 1);
@@ -101,19 +80,14 @@ export default class CreateForm extends Component {
         <Items
           key={index}
           checkboxName={item}
-<<<<<<< HEAD:src/create-form/index.tsx
           stateInputForms={inputForms}
           changeCheckbox={this.changeCheckbox}
-=======
-          /*changeCheckbox={this.changeCheckbox}*/
->>>>>>> redux:src/containers/create-form/index.tsx
         />
       );
     });
   }
 
   selectItems = () => {
-<<<<<<< HEAD:src/create-form/index.tsx
     const {selectForms} = this.state;
     return (
       <div className="dropdown">
@@ -133,55 +107,6 @@ export default class CreateForm extends Component {
   componentDidUpdate(prevProps: Props, prevState: State) {
     localStorage.setItem('build-form', JSON.stringify(this.state));
   }
-=======
-    return select.map((item: string, index: number) => {
-      return (
-        <Select
-          key={index}
-          selectName={item}
-          /*selectCheckbox={this.selectCheckbox}*/
-        />
-      );
-    });
-  }
-
-/*  componentWillUpdate({}, nextState: State) {
-    localStorage.setItem('build-form', JSON.stringify(nextState));
-  }
-
-  componentWillMount() {
-    if (localStorage.getItem('build-form')) {
-      this.setState((state: State): any => {
-        return JSON.parse(localStorage.getItem('build-form') || 'null');
-      });
-    }
-  }
-
-  componentDidMount() {
-    const checkboxes = document.querySelectorAll('.form-input_checkbox');
-    const selectCheckboxes = document.querySelectorAll('.dropdown-childs');
-    const lc = JSON.parse(localStorage.getItem('build-form') || 'null');
-    if (!lc) {
-      return;
-    }
-
-    lc.inputForms.forEach((item1: any) => {
-      checkboxes.forEach((item2) => {
-        if (item2.childNodes[0].textContent === item1) {
-          (item2.childNodes[1].childNodes[0] as HTMLInputElement).checked = true;
-        }
-      });
-    });
-
-    lc.selectForms.forEach((item1: any) => {
-      selectCheckboxes.forEach((item2: HTMLInputElement) => {
-        if (item2.childNodes[0].textContent === item1) {
-          (item2.childNodes[0].childNodes[1] as HTMLInputElement).checked = true;
-        }
-      });
-    });
-  }*/
->>>>>>> redux:src/containers/create-form/index.tsx
 
   render() {
     return (
