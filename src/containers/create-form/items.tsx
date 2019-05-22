@@ -1,6 +1,6 @@
-import React, { Component, FormEvent } from 'react';
+import React, {Component, FormEvent} from 'react';
 import './index.css';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 
 interface Props {
@@ -23,28 +23,28 @@ interface IStringBooleanArray {
 
 class Items extends Component<Props, State> {
 
-  changeCheckbox = ({ currentTarget }: FormEvent<HTMLInputElement>) => {
-    const checkBoxElement = currentTarget.childNodes[1].childNodes[0] as HTMLInputElement;
-    const inputName = currentTarget.childNodes[0].textContent as string;
-    const checkboxElementCheck = checkBoxElement.checked as boolean;
+  changeCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
+    const inputName = currentTarget.value as string;
+    const checkboxElementCheck = currentTarget.checked as boolean;
     const arr: IStringBooleanArray[] = [];
-    arr.push({ inputName, checkboxElementCheck });
+    arr.push({inputName, checkboxElementCheck});
     this.props.checkInput(arr[0].inputName);
   };
 
   render() {
-    const { checkboxName } = this.props;
+    const {checkboxName} = this.props;
     return (
       <div
         className="form-input_checkbox"
-        onChange={this.changeCheckbox}
       >
         <div className="form-input_checkbox--name">
           {checkboxName}
         </div>
         <div className="form-input_checkbox--input">
           <input
+            value={checkboxName}
             type="checkbox"
+            onChange={this.changeCheckbox}
           />
         </div>
       </div>
