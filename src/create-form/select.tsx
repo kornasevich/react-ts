@@ -8,8 +8,9 @@ interface IStringBooleanArray {
 }
 
 interface Props {
-  selectCheckbox: (value: IStringBooleanArray[]) => void;
+  selectCheckbox: (value: IStringBooleanArray) => void;
   selectName: string;
+  stateSelectForms: string[];
 }
 
 interface IStringArray {
@@ -30,31 +31,38 @@ export default class Select extends Component<Props, State> {
   };
 
   selectCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
-    const checkBoxElement = currentTarget.childNodes[0].childNodes[1] as HTMLInputElement;
-    const inputName = currentTarget.childNodes[0].textContent as string;
-    const checkboxElementCheck = checkBoxElement.checked as boolean;
-    const arr: IStringBooleanArray[] = [];
-    arr.push({ inputName, checkboxElementCheck });
+    const checkboxElementCheck = currentTarget.checked as boolean;
+    const checkboxElementName = currentTarget.value as string;
+    const arr: IStringBooleanArray = {
+      inputName: '',
+      checkboxElementCheck: false
+    };
+    arr['inputName'] = checkboxElementName;
+    arr['checkboxElementCheck'] = checkboxElementCheck;
     const copyState: State = { ...this.state };
-    copyState.inputForms.push(arr[0].inputName);
+    copyState.inputForms.push(arr.inputName);
     this.props.selectCheckbox(arr);
-    this.setState((state: State): any => {
-      return {
-        state: copyState,
-      };
-    });
+  };
+
+
+  checkInputCheck = (value: string, inputForms: string[]): boolean => {
+    return inputForms.filter((item: string) => item === value).length > 0;
   };
 
   render() {
-    const {selectName} = this.props;
+    const { selectName, stateSelectForms } = this.props;
     return (
       <div
         className="dropdown-childs"
-        onChange={this.selectCheckbox}
       >
         <label>
           {selectName}
-          <input type="checkbox"/>
+          <input
+            value={selectName}
+            type="checkbox"
+            onChange={this.selectCheckbox}
+            checked={this.checkInputCheck(selectName, stateSelectForms)}
+          />
         </label>
       </div>
     );

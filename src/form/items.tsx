@@ -3,14 +3,19 @@ import React, {Component} from 'react';
 import './index.css';
 
 interface Props {
-  label: string;
+  label: IStringArray;
+}
+
+interface IStringArray {
+  values: string[];
 }
 
 export default class Items extends Component<Props> {
   render() {
+    const { label } = this.props;
     return (
       <div className="input-form-created">
-        <div>{this.props.label}</div>
+        <div>{label}</div>
         <input type="text"/>
       </div>
     );

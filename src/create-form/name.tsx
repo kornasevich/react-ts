@@ -7,11 +7,10 @@ interface Props {
 }
 
 export default class Name extends Component<Props> {
-  changeFormName = ({ target }: ChangeEvent<HTMLInputElement>) =>{
+  changeFormName = ({ target:{ value } }: ChangeEvent<HTMLInputElement>) =>{
     const { changeName } = this.props;
-    changeName(target.value);
+    changeName(value);
   };
-
 
   render() {
     return (

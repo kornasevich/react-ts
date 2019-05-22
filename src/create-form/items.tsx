@@ -1,9 +1,10 @@
-import React, { Component, FormEvent } from 'react';
+import React, {Component, FormEvent} from 'react';
 import './index.css';
 
 interface Props {
   checkboxName: string;
-  changeCheckbox: (value: IStringBooleanArray[]) => void;
+  changeCheckbox: (value: IStringBooleanArray) => void;
+  stateInputForms: string[];
 }
 
 interface IStringArray {
@@ -28,35 +29,39 @@ export default class Items extends Component<Props, State> {
     selectForms: [],
   };
 
-  changeCheckbox = ({ currentTarget }: FormEvent<HTMLInputElement>) => {
-    const checkBoxElement = currentTarget.childNodes[1].childNodes[0] as HTMLInputElement;
-    const inputName = currentTarget.childNodes[0].textContent as string;
-    const checkboxElementCheck = checkBoxElement.checked as boolean;
-    const arr: IStringBooleanArray[] = [];
-    arr.push({ inputName, checkboxElementCheck });
-    const copyState: State = { ...this.state };
-    copyState.inputForms.push(arr[0].inputName);
+  changeCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
+    const checkboxElementCheck = currentTarget.checked as boolean;
+    const checkboxElementName = currentTarget.value as string;
+    const arr: IStringBooleanArray = {
+      inputName: '',
+      checkboxElementCheck: false,
+    };
+    arr['inputName'] = checkboxElementName;
+    arr['checkboxElementCheck'] = checkboxElementCheck;
+    const copyState: State = {...this.state};
+    copyState.inputForms.push(arr.inputName);
     this.props.changeCheckbox(arr);
-    this.setState((state: State): any => {
-      return {
-        state: copyState,
-      };
-    });
+  };
+
+  checkInputCheck = (value: string, inputForms: string[]): boolean => {
+    return inputForms.filter((item: string) => item === value).length > 0;
   };
 
   render() {
-    const { checkboxName } = this.props;
+    const {checkboxName, stateInputForms} = this.props;
     return (
       <div
         className="form-input_checkbox"
-        onChange={this.changeCheckbox}
       >
         <div className="form-input_checkbox--name">
           {checkboxName}
         </div>
         <div className="form-input_checkbox--input">
           <input
+            value={checkboxName}
             type="checkbox"
+            onChange={this.changeCheckbox}
+            checked={this.checkInputCheck(checkboxName, stateInputForms)}
           />
         </div>
       </div>

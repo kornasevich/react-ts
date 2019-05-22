@@ -17,12 +17,13 @@ interface State {
   selectForms: IStringArray[];
 }
 
-interface IStringBooleanArray {
+
+interface Props {
   inputName: string;
   checkboxElementCheck: boolean;
 }
 
-export default class CreateForm extends Component<{}, State> {
+export default class CreateForm extends Component<Props, State> {
 
   state = {
     inputForms: [],
@@ -32,34 +33,33 @@ export default class CreateForm extends Component<{}, State> {
 
   changeName = (value: string) => {
     this.setState({
-      ...this.state,
       formName: value,
     });
   };
 
 
-  changeCheckbox = (value: IStringBooleanArray[]): void => {
+  changeCheckbox = (value: Props): void => {
     const copyState = {...this.state};
-    if (value[0].checkboxElementCheck) {
-      copyState.inputForms.push(value[0].inputName as never);
+    const {checkboxElementCheck, inputName} = value;
+    if (checkboxElementCheck) {
+      copyState.inputForms.push(inputName as never);
       this.setState({...copyState});
     } else {
-      const index = copyState.inputForms.indexOf(value[0].inputName as never);
-      const newArr = [...copyState.inputForms.slice(0, index), ...copyState.inputForms.slice(index + 1)];
-      copyState.inputForms = [...newArr];
+      const index = copyState.inputForms.indexOf(inputName as never);
+      copyState.inputForms.splice(index, 1);
       this.setState({...copyState});
     }
   };
 
-  selectCheckbox = (value: IStringBooleanArray[]): void => {
+  selectCheckbox = (value: Props): void => {
     const copyState = {...this.state};
-    if (value[0].checkboxElementCheck) {
-      copyState.selectForms.push(value[0].inputName as never);
+    const {checkboxElementCheck, inputName} = value;
+    if (checkboxElementCheck) {
+      copyState.selectForms.push(inputName as never);
       this.setState({...copyState});
     } else {
-      const index = copyState.selectForms.indexOf(value[0].inputName as never);
-      const newArr = [...copyState.selectForms.slice(0, index), ...copyState.selectForms.slice(index + 1)];
-      copyState.selectForms = [...newArr];
+      const index = copyState.selectForms.indexOf(inputName as never);
+      copyState.selectForms.splice(index, 1);
       this.setState({...copyState});
     }
   };
@@ -70,60 +70,36 @@ export default class CreateForm extends Component<{}, State> {
         <Items
           key={index}
           checkboxName={item}
+          stateInputForms={this.state.inputForms}
           changeCheckbox={this.changeCheckbox}
         />
       );
     });
   };
 
-  selectItems = () => {
-    return select.map((item: string, index: number) => {
-      return (
+  selectItems = () => (
+    <div className="dropdown">
+      <button className="mainmenubtn">Menu</button>
+      {select.map((item: string, index: number) => (
         <Select
           key={index}
           selectName={item}
+          stateSelectForms={this.state.selectForms}
           selectCheckbox={this.selectCheckbox}
         />
-      );
-    });
-  };
+      ))}
+    </div>
+  );
 
   componentWillUpdate({}, nextState: State) {
     localStorage.setItem('build-form', JSON.stringify(nextState));
   }
 
   componentWillMount() {
+    const localStorageObj = JSON.parse(localStorage.getItem('build-form') || 'null');
     if (localStorage.getItem('build-form')) {
-      this.setState((state: State): any => {
-        return JSON.parse(localStorage.getItem('build-form') || 'null');
-      });
+      this.setState({...localStorageObj});
     }
-  }
-
-
-  componentDidMount() {
-    const checkboxes = document.querySelectorAll('.form-input_checkbox');
-    const selectCheckboxes = document.querySelectorAll('.dropdown-childs');
-    const lc = JSON.parse(localStorage.getItem('build-form') || 'null');
-    if (!lc) {
-      return;
-    }
-
-    lc.inputForms.forEach((item1: any) => {
-      checkboxes.forEach((item2) => {
-        if (item2.childNodes[0].textContent === item1) {
-          (item2.childNodes[1].childNodes[0] as HTMLInputElement).checked = true;
-        }
-      });
-    });
-
-    lc.selectForms.forEach((item1: any) => {
-      selectCheckboxes.forEach((item2: HTMLInputElement) => {
-        if (item2.childNodes[0].textContent === item1) {
-          (item2.childNodes[0].childNodes[1] as HTMLInputElement).checked = true;
-        }
-      });
-    });
   }
 
   render() {
@@ -138,10 +114,9 @@ export default class CreateForm extends Component<{}, State> {
           <div className="form-input">
             {this.formItems()}
             <div className="select-menu">
-              <div className="dropdown">
-                <button className="mainmenubtn">Menu</button>
-                {this.selectItems()}
-              </div>
+
+              {this.selectItems()}
+
             </div>
           </div>
         </div>
