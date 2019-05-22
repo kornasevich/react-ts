@@ -29,18 +29,16 @@ export default class Items extends Component<Props, State> {
     selectForms: [],
   };
 
-  changeCheckbox = ({currentTarget:{value, checked}}: FormEvent<HTMLInputElement>) => {
-    const { changeCheckbox } = this.props;
-    const checkboxElementCheck = checked as boolean;
-    const checkboxElementName = value as string;
+  changeCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
+    const {changeCheckbox} = this.props;
     changeCheckbox({
-      inputName: checkboxElementName,
-      inputCheck: checkboxElementCheck,
+      inputName: value,
+      inputCheck: checked,
     });
   };
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
-    return inputForms.filter((item: string) => item === value).length > 0;
+    return inputForms.includes(value);
   };
 
   render() {

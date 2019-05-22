@@ -23,6 +23,7 @@ interface State {
   selectForms: IStringArray[];
 }
 
+
 export default class Select extends Component<Props, State> {
   state = {
     inputForms: [],
@@ -32,17 +33,15 @@ export default class Select extends Component<Props, State> {
 
   selectCheckbox = ({currentTarget:{value, checked}}: FormEvent<HTMLInputElement>) => {
     const { selectCheckbox } = this.props;
-    const checkboxElementCheck = checked as boolean;
-    const checkboxElementName = value as string;
     selectCheckbox({
-      inputName: checkboxElementName,
-      inputCheck: checkboxElementCheck,
+      inputName: value ,
+      inputCheck: checked,
     });
   };
 
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
-    return inputForms.filter((item: string) => item === value).length > 0;
+    return inputForms.includes(value);
   };
 
   render() {
