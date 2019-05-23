@@ -31,20 +31,28 @@ interface State {
 }
 
 interface Props {
-  key: number;
   selectName: string;
   selectInput: (value: any) => void;
+  selectForms: string[];
 }
 
 class Select extends Component<Props> {
 
-  selectCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
-    const checkBoxElement = currentTarget.childNodes[0].childNodes[1] as HTMLInputElement;
-    const inputName = currentTarget.childNodes[0].textContent as string;
-    const checkboxElementCheck = checkBoxElement.checked as boolean;
+  selectCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
+    const { selectInput, selectForms } = this.props;
+    const inputName = value as string;
+    const checkboxElementCheck = checked as boolean;
     const arr: IStringBooleanArray[] = [];
-    arr.push({ inputName, checkboxElementCheck });
-    this.props.selectInput(arr[0].inputName);
+    arr.push({inputName, checkboxElementCheck});
+    console.log(arr);
+    if (checkboxElementCheck) {
+      selectForms.push(arr[0].inputName);
+      selectInput(selectForms);
+    } else {
+      const index = selectForms.indexOf(inputName);
+      selectForms.splice(index, 1);
+      selectInput(selectForms);
+    }
   };
 
 
@@ -53,11 +61,14 @@ class Select extends Component<Props> {
     return (
       <div
         className="dropdown-childs"
-        onChange={this.selectCheckbox}
       >
         <label>
           {selectName}
-          <input type="checkbox"/>
+          <input
+            value={selectName}
+            type="checkbox"
+            onChange={this.selectCheckbox}
+          />
         </label>
       </div>
     );
@@ -66,7 +77,7 @@ class Select extends Component<Props> {
 
 const mapStateToProps = (state: State) => {
   return {
-    inputForms: state.selectForms,
+    selectForms: state.selectForms,
   };
 };
 

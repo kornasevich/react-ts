@@ -1,16 +1,24 @@
-import React, { Component } from 'react';
+import React, {Component, ChangeEvent} from 'react';
+import * as actions from '../actions/actions';
 
 import './index.css';
-/*
+import {connect} from 'react-redux';
+
 interface Props {
   changeName: (arg: string) => void;
-}*/
+}
 
-export default class Name extends Component/*<Props>*/ {
-/*  changeFormName = ({ target }: ChangeEvent<HTMLInputElement>) =>{
+interface State {
+  inputForms: string[];
+  formName: string;
+  selectForms: string[];
+}
+
+class Name extends Component<Props, State> {
+  changeFormName = ({ target: { value }}: ChangeEvent<HTMLInputElement>) => {
     const { changeName } = this.props;
-    changeName(target.value);
-  };*/
+    changeName(value);
+  };
 
 
   render() {
@@ -21,10 +29,18 @@ export default class Name extends Component/*<Props>*/ {
           <input
             className="create-name-form"
             placeholder="Введите название формы"
-            /*onChange={this.changeFormName}*/
+            onChange={this.changeFormName}
           />
         </label>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state: State) => {
+  return {
+    formName: state.formName,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Name);

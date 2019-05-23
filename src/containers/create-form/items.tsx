@@ -23,12 +23,20 @@ interface IStringBooleanArray {
 
 class Items extends Component<Props, State> {
 
-  changeCheckbox = ({currentTarget}: FormEvent<HTMLInputElement>) => {
-    const inputName = currentTarget.value as string;
-    const checkboxElementCheck = currentTarget.checked as boolean;
+  changeCheckbox = ({currentTarget:{value, checked}}: FormEvent<HTMLInputElement>) => {
+    const { inputForms, checkInput } = this.props;
+    const inputName = value as string;
+    const checkboxElementCheck = checked as boolean;
     const arr: IStringBooleanArray[] = [];
     arr.push({inputName, checkboxElementCheck});
-    this.props.checkInput(arr[0].inputName);
+    if (checkboxElementCheck) {
+      inputForms.push(arr[0].inputName);
+      checkInput(inputForms);
+    } else {
+      const index = inputForms.indexOf(inputName);
+      inputForms.splice(index, 1);
+      checkInput(inputForms);
+    }
   };
 
   render() {
