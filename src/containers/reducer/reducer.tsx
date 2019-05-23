@@ -7,17 +7,23 @@ const reducer = (
   , action: any) => {
   switch (action.type) {
     case 'CHECK_INPUT':
-      const newArrCheck = [...state.inputForms, action.payload];
+      const newArrCheck = [...action.payload];
       return {
         ...state,
         inputForms: newArrCheck,
       };
 
     case 'SELECT_INPUT':
-      const newArrSelect = [...state.selectForms, action.payload];
+      const newArrSelect = [...action.payload];
       return {
         ...state,
         selectForms: newArrSelect,
+      };
+
+    case 'CHANGE_NAME':
+      return {
+        ...state,
+        formName: action.payload,
       };
 
     default:

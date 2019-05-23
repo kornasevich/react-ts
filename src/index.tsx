@@ -2,12 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-
 import App from './containers/app/app';
 import reducer from './containers/reducer/reducer';
 
 import { createStore } from 'redux';
-import devToolsEnhancer from 'remote-redux-devtools';
+import { devToolsEnhancer  } from 'redux-devtools-extension';
 const store = createStore(reducer, devToolsEnhancer());
 
 

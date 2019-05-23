@@ -4,7 +4,7 @@ import './index.css';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 
-/*interface IStringBooleanArray {
+interface IStringBooleanArray {
   inputName: string;
   inputCheck: boolean;
 }
@@ -23,14 +23,11 @@ interface State {
   inputForms: string[];
   formName: string;
   selectForms: IStringArray[];
-}*/
-interface IStringBooleanArray {
-  inputName: string;
-  checkboxElementCheck: boolean;
 }
 
 
-export default class Select extends Component<Props, State> {
+
+class Select extends Component<Props, State> {
   state = {
     inputForms: [],
     formName: '',
@@ -48,7 +45,7 @@ export default class Select extends Component<Props, State> {
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
     return inputForms.includes(value);
-  };
+  }
 
   render() {
     const { selectName, stateSelectForms } = this.props;
@@ -72,7 +69,7 @@ export default class Select extends Component<Props, State> {
 
 const mapStateToProps = (state: State) => {
   return {
-    inputForms: state.selectForms,
+    selectForms: state.selectForms,
   };
 };
 
