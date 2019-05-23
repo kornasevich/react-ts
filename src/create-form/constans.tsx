@@ -22,4 +22,10 @@ const select: string[] = [
   'item 7',
 ];
 
-export { checkbox, select }
+const defaultSettings = {
+  inputForms: [],
+  formName: '',
+  selectForms: []
+}
+
+export { checkbox, select, defaultSettings }

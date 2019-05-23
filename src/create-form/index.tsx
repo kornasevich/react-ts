@@ -3,7 +3,7 @@ import './index.css';
 
 import Name from './name';
 import Items from './items';
-import {checkbox, select} from './constans';
+import {checkbox, select, defaultSettings} from './constans';
 import Select from './select';
 import Form from '../form';
 
@@ -27,16 +27,13 @@ export default class CreateForm extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    if (localStorage.getItem('build-form')) {
-      this.state = JSON.parse(localStorage.getItem('build-form') || 'null');
+    const savedSettings = JSON.parse(localStorage.getItem('build-form') || 'null');
+
+    this.state = {
+      ...defaultSettings,
+      ...savedSettings,
     }
   }
-
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  };
 
   changeName = (value: string) => {
     this.setState({
@@ -78,7 +75,7 @@ export default class CreateForm extends Component<Props, State> {
   };
 
   formItems = () => {
-    const { inputForms } = this.state;
+    const {inputForms} = this.state;
     return checkbox.map((item: string, index: number) => {
       return (
         <Items
@@ -91,23 +88,25 @@ export default class CreateForm extends Component<Props, State> {
     });
   };
 
-  selectItems = () => (
-    <div className="dropdown">
-      <button className="mainmenubtn">Menu</button>
-      {select.map((item: string, index: number) => (
-        <Select
-          key={index}
-          selectName={item}
-          stateSelectForms={this.state.selectForms}
-          selectCheckbox={this.selectCheckbox}
-        />
-      ))}
-    </div>
-  );
+  selectItems = () => {
+    const {selectForms} = this.state;
+    return (
+      <div className="dropdown">
+        <button className="mainmenubtn">Menu</button>
+        {select.map((item: string, index: number) => (
+          <Select
+            key={index}
+            selectName={item}
+            stateSelectForms={selectForms}
+            selectCheckbox={this.selectCheckbox}
+          />
+        ))}
+      </div>
+    );
+  }
 
-  shouldComponentUpdate(nextProps: Props, nextState: State) {
-    localStorage.setItem('build-form', JSON.stringify(nextState));
-    return true;
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    localStorage.setItem('build-form', JSON.stringify(this.state));
   }
 
   render() {
