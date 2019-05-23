@@ -41,13 +41,20 @@ export default class Form extends Component<Props> {
     });
   }
 
+  selectMenu = () => (
+    <div
+      className="select-menu">
+      <div className="dropdown">
+        <button className="mainmenubtn">Menu</button>
+        {this.selects()}
+      </div>
+    </div>
+  );
+
   render() {
     const lengthArray = this.props.allState.selectForms.length;
 
-    const style = {
-      display: lengthArray ? 'block' : 'none',
-    };
-    const { formName } = this.props.allState;
+    const {formName} = this.props.allState;
     return (
       <div className="created-forms">
         <div className="created-form_name">
@@ -55,14 +62,7 @@ export default class Form extends Component<Props> {
         </div>
         <div className="created-form_input">
           {this.elements()}
-          <div
-            style={style}
-            className="select-menu">
-            <div className="dropdown">
-              <button className="mainmenubtn">Menu</button>
-              {this.selects()}
-            </div>
-          </div>
+          {lengthArray ?  this.selectMenu() : null}
         </div>
       </div>
     );

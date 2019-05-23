@@ -17,7 +17,6 @@ interface State {
   selectForms: IStringArray[];
 }
 
-
 interface Props {
   inputName: string;
   inputCheck: boolean;
@@ -27,8 +26,8 @@ export default class CreateForm extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const savedSettings = JSON.parse(localStorage.getItem('build-form') || 'null');
-
+    const buildForm = localStorage.getItem('build-form') as string;
+    const savedSettings = buildForm ? JSON.parse(buildForm) : {};
     this.state = {
       ...defaultSettings,
       ...savedSettings,
