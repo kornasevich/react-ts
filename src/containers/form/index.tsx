@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Items from './items';
 import './index.css';
+import {connect} from 'react-redux';
+import * as actions from '../actions/actions';
+
 import Select from './select';
 
 interface Props {
-  allState: {
-    inputForms: IStringArray[];
-    formName: string;
-    selectForms: IStringArray[];
-  };
+  formName: string;
+  inputForms: string[];
+  selectForms: string[];
 }
 
-interface IStringArray {
-  values: string[];
+interface State {
+  inputForms: string[];
+  formName: string;
+  selectForms: string[];
 }
 
-export default class Form extends Component<Props> {
+class Form extends Component<Props> {
   elements = () => {
-    const {inputForms} = this.props.allState;
-    return inputForms.map((item: IStringArray, index: number) => {
+    return this.props.inputForms.map((item, index) => {
       return (
         <Items
           key={index}
@@ -30,8 +32,7 @@ export default class Form extends Component<Props> {
   }
 
   selects = () => {
-    const {selectForms} = this.props.allState;
-    return selectForms.map((item: IStringArray, index: number) => {
+    return this.props.selectForms.map((item, index) => {
       return (
         <Select
           key={index}
@@ -52,7 +53,7 @@ export default class Form extends Component<Props> {
   );
 
   render() {
-    const lengthArray = this.props.allState.selectForms.length;
+    const lengthArray = this.props.selectForms.length;
 
     const {formName} = this.props.allState;
     return (
@@ -68,3 +69,13 @@ export default class Form extends Component<Props> {
     );
   }
 }
+
+const mapStateToProps = (state: State) => {
+  return {
+    formName: state.formName,
+    inputForms: state.inputForms,
+    selectForms: state.selectForms,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Form);

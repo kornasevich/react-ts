@@ -1,23 +1,27 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './index.css';
+import { connect } from 'react-redux';
+
+import * as actions from '../actions/actions';
 
 import Name from './name';
 import Items from './items';
+<<<<<<< HEAD
 import { checkbox, select, defaultSettings } from './constans';
+=======
+import {checkbox, select} from './constans';
+>>>>>>> redux-build-form
 import Select from './select';
 import Form from '../form';
-
-/*interface IStringArray {
-  values: string[];
-}
 
 interface State {
   inputForms: string[];
   formName: string;
-  selectForms: IStringArray[];
+  selectForms: string[];
 }
 
 interface Props {
+<<<<<<< HEAD
   inputName: string;
   inputCheck: boolean;
 }
@@ -75,19 +79,33 @@ export default class CreateForm extends Component<Props, State> {
 
   formItems = () => {
     const {inputForms} = this.state;
+=======
+  inputForms: string[];
+  selectForms: string[];
+}
+
+class CreateForm extends Component<Props> {
+
+  formItems = () => {
+    const { inputForms } = this.props;
+>>>>>>> redux-build-form
     return checkbox.map((item: string, index: number) => {
       return (
         <Items
           key={index}
           checkboxName={item}
           stateInputForms={inputForms}
+<<<<<<< HEAD
           changeCheckbox={this.changeCheckbox}
+=======
+>>>>>>> redux-build-form
         />
       );
     });
   }
 
   selectItems = () => {
+<<<<<<< HEAD
     const {selectForms} = this.state;
     return (
       <div className="dropdown">
@@ -106,6 +124,18 @@ export default class CreateForm extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     localStorage.setItem('build-form', JSON.stringify(this.state));
+=======
+    const { selectForms } = this.props;
+    return select.map((item: string, index: number) => {
+      return (
+        <Select
+          key={index}
+          selectName={item}
+          stateSelectForms={selectForms}
+        />
+      );
+    });
+>>>>>>> redux-build-form
   }
 
   render() {
@@ -113,9 +143,7 @@ export default class CreateForm extends Component<Props, State> {
       <div className="create-form">
         <div className="form">
           <div className="form-name">
-            <Name
-              /*changeName={this.changeName}*/
-            />
+            <Name/>
           </div>
           <div className="form-input">
             {this.formItems()}
@@ -131,3 +159,12 @@ export default class CreateForm extends Component<Props, State> {
     );
   }
 }
+
+const mapStateToProps = (state: State) => {
+  return {
+    inputForms: state.inputForms,
+    selectForms: state.selectForms,
+  };
+};
+
+export default connect(mapStateToProps, actions)(CreateForm);

@@ -42,10 +42,10 @@ class Select extends Component<Props, State> {
     });
   };
 
-
   checkInputRender = (value: string, inputForms: string[]): boolean => {
     return inputForms.includes(value);
-  }
+  };
+
 
   render() {
     const { selectName, stateSelectForms } = this.props;

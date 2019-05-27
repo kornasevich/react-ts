@@ -2,7 +2,7 @@ import React, {Component, ChangeEvent} from 'react';
 import * as actions from '../actions/actions';
 
 import './index.css';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 interface Props {
   changeName: (arg: string) => void;

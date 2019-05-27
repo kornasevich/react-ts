@@ -10,16 +10,16 @@ interface IStringArray {
   values: string[];
 }
 
-export default class Select extends Component/*<Props>*/ {
+export default class Select extends Component<Props> {
   render() {
 
-   /* const { selectName } = this.props;*/
+    const { selectName } = this.props;
     return (
       <div
         className="dropdown-child"
       >
         <label>
-         {/* {selectName}*/}
+          {selectName}
           <input type="checkbox"/>
         </label>
       </div>
