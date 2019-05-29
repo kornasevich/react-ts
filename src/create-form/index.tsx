@@ -3,7 +3,7 @@ import './index.css';
 
 import Name from './name';
 import Items from './items';
-import {checkbox, select, defaultSettings} from './constans';
+import { checkbox, select, defaultSettings } from './constans';
 import Select from './select';
 import Form from '../form';
 
