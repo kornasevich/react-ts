@@ -57,7 +57,6 @@ class Form extends Component<Props> {
     const lengthArray = this.props.selectForms.length;
     const { formName } = this.props;
 
-    const {formName} = this.props.allState;
     return (
       <div className="created-forms">
         <div className="created-form_name">

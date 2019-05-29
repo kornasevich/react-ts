@@ -1,6 +1,6 @@
 import React, {Component, FormEvent} from 'react';
 import './index.css';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 
 interface Props {
@@ -8,11 +8,7 @@ interface Props {
   checkInput: (value: string[]) => void;
   key: number;
   inputForms: string[];
-<<<<<<< HEAD
-  changeCheckbox: (value: IStringBooleanArray) => void;
-=======
   stateInputForms: string[];
->>>>>>> redux-build-form
 }
 
 interface State {
@@ -23,37 +19,22 @@ interface State {
 
 interface IStringBooleanArray {
   inputName: string;
-  inputCheck: boolean;
+  checkboxElementCheck: boolean;
 }
 
 class Items extends Component<Props> {
 
   changeCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
-<<<<<<< HEAD
-    const {changeCheckbox} = this.props;
-    changeCheckbox({
-      inputName: value,
-      inputCheck: checked,
-    });
-  };
-
-  checkInputRender = (value: string, inputForms: string[]): boolean => {
-    return inputForms.includes(value);
-=======
     const {inputForms, checkInput} = this.props;
-    const inputName = value as string;
-    const checkboxElementCheck = checked as boolean;
-    const arr: IStringBooleanArray[] = [];
-    arr.push({inputName, checkboxElementCheck});
-    if (checkboxElementCheck) {
-      inputForms.push(arr[0].inputName);
-      checkInput(inputForms);
+    const newInputForms = [...inputForms];
+    if (checked) {
+      newInputForms.push(value);
+      checkInput(newInputForms);
     } else {
-      const index = inputForms.indexOf(inputName);
-      inputForms.splice(index, 1);
-      checkInput(inputForms);
+      const index = inputForms.indexOf(value);
+      newInputForms.splice(index, 1);
+      checkInput(newInputForms);
     }
->>>>>>> redux-build-form
   };
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
@@ -61,11 +42,7 @@ class Items extends Component<Props> {
   };
 
   render() {
-<<<<<<< HEAD
-    const {checkboxName, inputForms} = this.props;
-=======
     const {checkboxName, stateInputForms} = this.props;
->>>>>>> redux-build-form
     return (
       <div
         className="form-input_checkbox"
@@ -78,11 +55,7 @@ class Items extends Component<Props> {
             value={checkboxName}
             type="checkbox"
             onChange={this.changeCheckbox}
-<<<<<<< HEAD
-            checked={this.checkInputRender(checkboxName, inputForms)}
-=======
             checked={this.checkInputRender(checkboxName, stateInputForms)}
->>>>>>> redux-build-form
           />
         </div>
       </div>
@@ -92,11 +65,7 @@ class Items extends Component<Props> {
 
 const mapStateToProps = ({inputForms}: State) => {
   return {
-<<<<<<< HEAD
-      inputForms,
-=======
     inputForms,
->>>>>>> refactoring task4redux
   };
 };
 

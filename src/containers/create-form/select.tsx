@@ -6,75 +6,44 @@ import * as actions from '../actions/actions';
 
 interface IStringBooleanArray {
   inputName: string;
-  inputCheck: boolean;
+  checkboxElementCheck: boolean;
 }
 
-interface Props {
-  selectCheckbox: (value: IStringBooleanArray) => void;
-  selectName: string;
-  stateSelectForms: string[];
-}
-
-interface IStringArray {
-  values: string[];
-}
 
 interface State {
   inputForms: string[];
   formName: string;
-  selectForms: IStringArray[];
+  selectForms: string[];
 }
 
-<<<<<<< HEAD
-=======
 interface Props {
   selectName: string;
   selectInput: (value: string[]) => void;
   selectForms: string[];
   stateSelectForms: string[];
 }
->>>>>>> refactoring task4redux
 
+class Select extends Component<Props> {
 
-<<<<<<< HEAD
-class Select extends Component<Props, State> {
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  };
-
-  selectCheckbox = ({currentTarget:{value, checked}}: FormEvent<HTMLInputElement>) => {
-    const { selectCheckbox } = this.props;
-    selectCheckbox({
-      inputName: value ,
-      inputCheck: checked,
-    });
-=======
   selectCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
-    const {selectInput, selectForms} = this.props;
-    const inputName = value as string;
-    const checkboxElementCheck = checked as boolean;
-    const arr: IStringBooleanArray[] = [];
-    arr.push({inputName, checkboxElementCheck});
-    if (checkboxElementCheck) {
-      selectForms.push(arr[0].inputName);
-      selectInput(selectForms);
+    const {selectForms, selectInput} = this.props;
+    const newInputForms = [...selectForms];
+    if (checked) {
+      newInputForms.push(value);
+      selectInput(newInputForms);
     } else {
-      const index = selectForms.indexOf(inputName);
-      selectForms.splice(index, 1);
-      selectInput(selectForms);
+      const index = selectForms.indexOf(value);
+      newInputForms.splice(index, 1);
+      selectInput(newInputForms);
     }
->>>>>>> refactoring task4redux
   };
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
     return inputForms.includes(value);
   };
 
-
   render() {
-    const { selectName, stateSelectForms } = this.props;
+    const {selectName, stateSelectForms} = this.props;
     return (
       <div
         className="dropdown-childs"
