@@ -5,7 +5,7 @@ import * as actions from '../actions/actions';
 
 interface Props {
   checkboxName: string;
-  checkInput: (value: any) => void;
+  checkInput: (value: string[]) => void;
   key: number;
   inputForms: string[];
 <<<<<<< HEAD
@@ -26,7 +26,7 @@ interface IStringBooleanArray {
   inputCheck: boolean;
 }
 
-class Items extends Component<Props, State> {
+class Items extends Component<Props> {
 
   changeCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
 <<<<<<< HEAD
@@ -92,7 +92,11 @@ class Items extends Component<Props, State> {
 
 const mapStateToProps = ({inputForms}: State) => {
   return {
+<<<<<<< HEAD
       inputForms,
+=======
+    inputForms,
+>>>>>>> refactoring task4redux
   };
 };
 

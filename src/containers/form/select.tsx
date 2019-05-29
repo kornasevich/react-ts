@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 import './index.css';
 
 interface Props {
-  selectName: IStringArray;
-}
-
-interface IStringArray {
-  values: string[];
+  selectName: string;
 }
 
 export default class Select extends Component<Props> {

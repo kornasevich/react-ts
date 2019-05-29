@@ -1,8 +1,8 @@
-export const checkInput = (payload: any) => {
+export const checkInput = (payload: string[]) => {
   return {type: 'CHECK_INPUT', payload};
 };
 
-export const selectInput = (payload: any) => {
+export const selectInput = (payload: string[]) => {
   return {type: 'SELECT_INPUT', payload};
 };
 

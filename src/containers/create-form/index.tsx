@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import './index.css';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions/actions';
-
 import Name from './name';
 import Items from './items';
 <<<<<<< HEAD
@@ -160,11 +158,11 @@ class CreateForm extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = ({inputForms, selectForms} :State) => {
   return {
-    inputForms: state.inputForms,
-    selectForms: state.selectForms,
+    inputForms,
+    selectForms,
   };
 };
 
-export default connect(mapStateToProps, actions)(CreateForm);
+export default connect(mapStateToProps)(CreateForm);

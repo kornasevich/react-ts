@@ -2,7 +2,7 @@ import React, {Component, ChangeEvent} from 'react';
 import * as actions from '../actions/actions';
 
 import './index.css';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 interface Props {
   changeName: (arg: string) => void;
@@ -14,8 +14,8 @@ interface State {
   selectForms: string[];
 }
 
-class Name extends Component<Props, State> {
-  changeFormName = ({ target: { value }}: ChangeEvent<HTMLInputElement>) => {
+class Name extends Component<Props> {
+  changeFormName = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
     const { changeName } = this.props;
     changeName(value);
   };
@@ -37,9 +37,9 @@ class Name extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = ({formName}: State) => {
   return {
-    formName: state.formName,
+    formName,
   };
 };
 

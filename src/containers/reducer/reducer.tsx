@@ -1,23 +1,33 @@
+const initialState = {
+  inputForms: [],
+  formName: '',
+  selectForms: [],
+};
+
+
+interface ActionType {
+  type: string;
+  payload: string | string[];
+}
+
+const buildForm = localStorage.getItem('build-form');
+
 const reducer = (
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  }
-  , action: any) => {
+  state = buildForm ? JSON.parse(buildForm as string) : initialState ,
+  action: ActionType) => {
   switch (action.type) {
     case 'CHECK_INPUT':
-      const newArrCheck = [...action.payload];
+      const arrayCheck = Array.isArray(action.payload) ? [...action.payload] : [action.payload];
       return {
         ...state,
-        inputForms: newArrCheck,
+        inputForms: arrayCheck,
       };
 
     case 'SELECT_INPUT':
-      const newArrSelect = [...action.payload];
+      const arraySelect = Array.isArray(action.payload) ? [...action.payload] : [action.payload];
       return {
         ...state,
-        selectForms: newArrSelect,
+        selectForms: arraySelect,
       };
 
     case 'CHANGE_NAME':

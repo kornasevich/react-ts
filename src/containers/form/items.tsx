@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 import './index.css';
 
 interface Props {
-  label: IStringArray;
-}
-
-interface IStringArray {
-  values: string[];
+  label: string;
 }
 
 export default class Items extends Component<Props> {

@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Items from './items';
 import './index.css';
 import {connect} from 'react-redux';
-import * as actions from '../actions/actions';
 
 import Select from './select';
 
@@ -21,7 +20,8 @@ interface State {
 
 class Form extends Component<Props> {
   elements = () => {
-    return this.props.inputForms.map((item, index) => {
+    const { inputForms } = this.props;
+    return inputForms.map((item, index) => {
       return (
         <Items
           key={index}
@@ -32,7 +32,8 @@ class Form extends Component<Props> {
   }
 
   selects = () => {
-    return this.props.selectForms.map((item, index) => {
+    const { selectForms } = this.props;
+    return selectForms.map((item, index) => {
       return (
         <Select
           key={index}
@@ -54,6 +55,7 @@ class Form extends Component<Props> {
 
   render() {
     const lengthArray = this.props.selectForms.length;
+    const { formName } = this.props;
 
     const {formName} = this.props.allState;
     return (
@@ -70,12 +72,12 @@ class Form extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = ({formName, selectForms, inputForms}: State) => {
   return {
-    formName: state.formName,
-    inputForms: state.inputForms,
-    selectForms: state.selectForms,
+    formName,
+    inputForms,
+    selectForms,
   };
 };
 
-export default connect(mapStateToProps, actions)(Form);
+export default connect(mapStateToProps)(Form);

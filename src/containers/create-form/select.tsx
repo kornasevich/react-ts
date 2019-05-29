@@ -25,8 +25,18 @@ interface State {
   selectForms: IStringArray[];
 }
 
+<<<<<<< HEAD
+=======
+interface Props {
+  selectName: string;
+  selectInput: (value: string[]) => void;
+  selectForms: string[];
+  stateSelectForms: string[];
+}
+>>>>>>> refactoring task4redux
 
 
+<<<<<<< HEAD
 class Select extends Component<Props, State> {
   state = {
     inputForms: [],
@@ -40,6 +50,22 @@ class Select extends Component<Props, State> {
       inputName: value ,
       inputCheck: checked,
     });
+=======
+  selectCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
+    const {selectInput, selectForms} = this.props;
+    const inputName = value as string;
+    const checkboxElementCheck = checked as boolean;
+    const arr: IStringBooleanArray[] = [];
+    arr.push({inputName, checkboxElementCheck});
+    if (checkboxElementCheck) {
+      selectForms.push(arr[0].inputName);
+      selectInput(selectForms);
+    } else {
+      const index = selectForms.indexOf(inputName);
+      selectForms.splice(index, 1);
+      selectInput(selectForms);
+    }
+>>>>>>> refactoring task4redux
   };
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
@@ -67,9 +93,9 @@ class Select extends Component<Props, State> {
   }
 };
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = ({selectForms}: State) => {
   return {
-    selectForms: state.selectForms,
+    selectForms,
   };
 };
 
