@@ -1,7 +1,7 @@
 import React, {Component, FormEvent} from 'react';
 import './index.css';
 import {connect} from 'react-redux';
-import * as actions from '../actions/actions';
+import { checkInput } from '../actions/actions';
 
 interface Props {
   checkboxName: string;
@@ -15,11 +15,6 @@ interface State {
   inputForms: string[];
   formName: string;
   selectForms: string[];
-}
-
-interface IStringBooleanArray {
-  inputName: string;
-  checkboxElementCheck: boolean;
 }
 
 class Items extends Component<Props> {
@@ -69,4 +64,4 @@ const mapStateToProps = ({inputForms}: State) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Items);
+export default connect(mapStateToProps, { checkInput })(Items);

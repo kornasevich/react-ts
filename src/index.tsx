@@ -6,9 +6,9 @@ import App from './containers/app/app';
 import reducer from './containers/reducer/reducer';
 
 import { createStore } from 'redux';
-/*import {devToolsEnhancer} from 'redux-devtools-extension';*/
+import {devToolsEnhancer} from 'redux-devtools-extension';
 
-const store = createStore(reducer/*, devToolsEnhancer()*/);
+const store = createStore(reducer, devToolsEnhancer());
 
 store.subscribe(() => {
   localStorage.setItem('build-form', JSON.stringify(store.getState()));

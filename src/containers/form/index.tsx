@@ -54,7 +54,7 @@ class Form extends Component<Props> {
   );
 
   render() {
-    const lengthArray = this.props.selectForms.length;
+    const { length } = this.props.selectForms;
     const { formName } = this.props;
 
     return (
@@ -64,7 +64,7 @@ class Form extends Component<Props> {
         </div>
         <div className="created-form_input">
           {this.elements()}
-          {lengthArray ?  this.selectMenu() : null}
+          {length ?  this.selectMenu() : null}
         </div>
       </div>
     );

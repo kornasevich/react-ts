@@ -1,5 +1,5 @@
 import React, {Component, ChangeEvent} from 'react';
-import * as actions from '../actions/actions';
+import { changeName } from '../actions/actions';
 
 import './index.css';
 import {connect} from 'react-redux';
@@ -43,4 +43,4 @@ const mapStateToProps = ({formName}: State) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Name);
+export default connect(mapStateToProps, { changeName })(Name);
