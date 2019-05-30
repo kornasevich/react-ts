@@ -1,5 +1,5 @@
 import React, {Component, ChangeEvent} from 'react';
-import { changeName } from '../actions/actions';
+import {changeName} from '../actions/actions';
 
 import './index.css';
 import {connect} from 'react-redux';
@@ -8,15 +8,16 @@ interface Props {
   changeName: (arg: string) => void;
 }
 
-interface State {
+interface MapStateToProps {
   inputForms: string[];
   formName: string;
   selectForms: string[];
 }
 
 class Name extends Component<Props> {
+
   changeFormName = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
-    const { changeName } = this.props;
+    const {changeName} = this.props;
     changeName(value);
   };
 
@@ -37,10 +38,10 @@ class Name extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({formName}: State) => {
+const mapStateToProps = ({formName}: MapStateToProps) => {
   return {
     formName,
   };
 };
 
-export default connect(mapStateToProps, { changeName })(Name);
+export default connect(mapStateToProps, {changeName})(Name);
