@@ -2,24 +2,26 @@ import React, {Component} from 'react';
 
 import Items from './items';
 import './index.css';
+import {connect} from 'react-redux';
+
 import Select from './select';
 
 interface Props {
-  allState: {
-    inputForms: IStringArray[];
-    formName: string;
-    selectForms: IStringArray[];
-  };
+  formName: string;
+  inputForms: string[];
+  selectForms: string[];
 }
 
-interface IStringArray {
-  values: string[];
+interface State {
+  inputForms: string[];
+  formName: string;
+  selectForms: string[];
 }
 
-export default class Form extends Component<Props> {
+class Form extends Component<Props> {
   elements = () => {
-    const {inputForms} = this.props.allState;
-    return inputForms.map((item: IStringArray, index: number) => {
+    const { inputForms } = this.props;
+    return inputForms.map((item, index) => {
       return (
         <Items
           key={index}
@@ -30,8 +32,8 @@ export default class Form extends Component<Props> {
   }
 
   selects = () => {
-    const {selectForms} = this.props.allState;
-    return selectForms.map((item: IStringArray, index: number) => {
+    const { selectForms } = this.props;
+    return selectForms.map((item, index) => {
       return (
         <Select
           key={index}
@@ -52,9 +54,9 @@ export default class Form extends Component<Props> {
   );
 
   render() {
-    const lengthArray = this.props.allState.selectForms.length;
+    const { length } = this.props.selectForms;
+    const { formName } = this.props;
 
-    const {formName} = this.props.allState;
     return (
       <div className="created-forms">
         <div className="created-form_name">
@@ -62,9 +64,19 @@ export default class Form extends Component<Props> {
         </div>
         <div className="created-form_input">
           {this.elements()}
-          {lengthArray ?  this.selectMenu() : null}
+          {length ?  this.selectMenu() : null}
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({formName, selectForms, inputForms}: State) => {
+  return {
+    formName,
+    inputForms,
+    selectForms,
+  };
+};
+
+export default connect(mapStateToProps)(Form);

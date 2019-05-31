@@ -1,40 +1,35 @@
 import React, {Component, FormEvent} from 'react';
 import './index.css';
+import {connect} from 'react-redux';
+import { handleCheckInput } from '../actions/inputActions';
 
 interface Props {
   checkboxName: string;
-  changeCheckbox: (value: IStringBooleanArray) => void;
+  checkInput: (value: string[]) => void;
+  key: number;
+  inputForms: string[];
   stateInputForms: string[];
-}
-
-interface IStringArray {
-  values: string[];
 }
 
 interface State {
   inputForms: string[];
   formName: string;
-  selectForms: IStringArray[];
+  selectForms: string[];
 }
 
-interface IStringBooleanArray {
-  inputName: string;
-  inputCheck: boolean;
-}
-
-export default class Items extends Component<Props, State> {
-  state = {
-    inputForms: [],
-    formName: '',
-    selectForms: [],
-  };
+class Items extends Component<Props> {
 
   changeCheckbox = ({currentTarget: {value, checked}}: FormEvent<HTMLInputElement>) => {
-    const {changeCheckbox} = this.props;
-    changeCheckbox({
-      inputName: value,
-      inputCheck: checked,
-    });
+    const {inputForms, checkInput} = this.props;
+    const newInputForms = [...inputForms];
+    if (checked) {
+      newInputForms.push(value);
+      checkInput(newInputForms);
+    } else {
+      const index = inputForms.indexOf(value);
+      newInputForms.splice(index, 1);
+      checkInput(newInputForms);
+    }
   };
 
   checkInputRender = (value: string, inputForms: string[]): boolean => {
@@ -62,3 +57,18 @@ export default class Items extends Component<Props, State> {
     );
   }
 }
+
+const mapStateToProps = ({inputForms}: State) => {
+  return {
+    inputForms,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    checkInput: (value: string[]) => dispatch(handleCheckInput(value)),
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps )(Items);
