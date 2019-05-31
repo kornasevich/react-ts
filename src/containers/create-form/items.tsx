@@ -1,7 +1,7 @@
 import React, {Component, FormEvent} from 'react';
 import './index.css';
 import {connect} from 'react-redux';
-import { checkInput } from '../actions/actions';
+import { handleCheckInput } from '../actions/inputActions';
 
 interface Props {
   checkboxName: string;
@@ -64,4 +64,11 @@ const mapStateToProps = ({inputForms}: State) => {
   };
 };
 
-export default connect(mapStateToProps, { checkInput })(Items);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    checkInput: (value: string[]) => dispatch(handleCheckInput(value)),
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps )(Items);

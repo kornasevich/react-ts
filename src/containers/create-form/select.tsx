@@ -2,7 +2,7 @@ import React, {Component, FormEvent} from 'react';
 
 import './index.css';
 import {connect} from 'react-redux';
-import { selectInput } from '../actions/actions';
+import { handleSelectInput } from '../actions/selectActions';
 
 interface State {
   inputForms: string[];
@@ -37,7 +37,7 @@ class Select extends Component<Props> {
   };
 
   render() {
-    const {selectName, stateSelectForms} = this.props;
+    const { selectName, stateSelectForms } = this.props;
     return (
       <div
         className="dropdown-childs"
@@ -62,4 +62,10 @@ const mapStateToProps = ({selectForms}: State) => {
   };
 };
 
-export default connect(mapStateToProps, { selectInput })(Select);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    selectInput: (value: string[]) => dispatch(handleSelectInput(value)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Select);

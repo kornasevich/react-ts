@@ -3,12 +3,14 @@ import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
 import App from './containers/app/app';
-import reducer from './containers/reducer/reducer';
+import reducer from './containers/reducer/index';
 
-import { createStore } from 'redux';
-import {devToolsEnhancer} from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(reducer, devToolsEnhancer());
+import thunk from 'redux-thunk';
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 store.subscribe(() => {
   localStorage.setItem('build-form', JSON.stringify(store.getState()));

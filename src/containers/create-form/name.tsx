@@ -1,5 +1,5 @@
 import React, {Component, ChangeEvent} from 'react';
-import {changeName} from '../actions/actions';
+import { handleChangeName } from '../actions/nameActions';
 
 import './index.css';
 import {connect} from 'react-redux';
@@ -44,4 +44,10 @@ const mapStateToProps = ({formName}: MapStateToProps) => {
   };
 };
 
-export default connect(mapStateToProps, {changeName})(Name);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeName: (value: string) => dispatch(handleChangeName(value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Name);
