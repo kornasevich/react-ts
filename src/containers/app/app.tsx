@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CreateForm from '../../create-form/index';
+import CreateForm from '../create-form/index';
 import Header from '../header/header';
 
 import './index.css';
